@@ -1,0 +1,61 @@
+<%=render 'shared/page_title', title: "create a new recipe"%>
+
+<% if @recipe.errors.any? %>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-2">
+            <div class="alert alert-danger" role="alert">
+                <div class="alert-heading">
+                    <%= pluralize(@recipe.errors.count,"error") %>
+                    Prohibited this <%=@recipe.class%> from being saved
+                </div>
+                <div class="alert-body">
+                    <ul>
+                    <% @recipe.errors.full_messages.each do |m| %>
+                    <li><%= m%></li>
+                    <%end%>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div> 
+<% end %>
+
+<div class="row">
+    <div class="col-md-12">
+        <%= form_for(@recipe, :html => {class: "form-horizontal",role: "form"}) do |f|%>
+            <div class="form-group">
+                <div class="control-label col-md-8">
+                    <%=f.label :name%>
+                </div>
+                <div class= "col-md-10">
+                    <%= f.text_field :name , class: "form-control", placeholder: "Name of recipe",autofocus: true%>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label col-md-8">
+                    <%=f.label :description%>
+                </div>
+                <div class="col-md-10">
+                    <%=f.text_area :description, rows: 10, class: "form-control",placeholder: "Enter steps to create recipe"%>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-12">
+                    <%=f.submit class: "btn btn-primary btn-lg btn-xlarge"%>
+                </div>
+            </div>
+
+        <%end%>
+        <div class="col-md-8 col-md-offset-4 well">
+            <div class="center">
+                [ <%=link_to "Cancel request and return to Recipes", recipes_path%>]
+            </div>
+        </div>
+    </div>
+</div>
+
+<% flash.each do |name,msg|%>
+    <ul>
+    <li><%=msg%></li>
+    </ul>
+    <%end%>

@@ -24,11 +24,12 @@
   }
 
  .btn-xlarge {
-    background-color: green;
+    background-color: black;
  } 
 
  .btn-xlarge:hover { 
-    color:#fff;
+    color: white;
+    background-color: black;
     text-decoration: none;
  } 
 
@@ -45,4 +46,21 @@
     color: #fff;
     text-decoration: none;
 }
+
+.desc{
+    margin-top: 0;
+}
+
+.well a{
+    color: black;
+}
+
+footer{
+    text-align: center;
+  padding: 3px;
+  background-color: DarkSalmon;
+  color: white;
+}
+
+
 
