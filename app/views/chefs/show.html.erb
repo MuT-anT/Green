@@ -1,1 +1,24 @@
-<%=render 'shared/page_title', title: @chef.name%>
+<%=render 'shared/page_title', title: "Chef #{@chef.name.capitalize}'s Recipes"%>
+<br>
+<div class="row">
+    <div class="center">
+        <%= gravatar_for @chef,size:200%>
+    </div>
+</div>
+<br>
+<h4 align="center"><%=@chef.name.capitalize%>'s recipes</h4>
+<div class="col-md-12 col-md-offset-4 well1">
+    <div class="center">
+        <%=link_to "Add new Recipe", new_recipe_path(@chef), class: "btn btn-primary btn-md btn-xlarge" %>
+        <%=link_to "Edit your profile", edit_chef_path(@chef), class: "btn btn-primary btn-md btn-xlarge" %>
+    </div>
+</div>
+<hr/>
+<br>
+<div class="col-md-12 center">
+    <%=will_paginate @chef_recipes%>
+</div>
+<%=render 'recipes/recipe', obj: @chef_recipes%>
+<div align="center">
+    <%=will_paginate @chef_recipes%>
+</div>

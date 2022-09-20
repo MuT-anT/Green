@@ -1,0 +1,27 @@
+<%= render 'shared/page_title' , title: "All MyRecipes Chefs"%>
+<br>
+
+<div align="center">
+    <%= will_paginate%>
+</div>
+
+
+<div align="center">
+    <%@chefs.each do |c|%>
+        <ul class="listing">
+            <div class="row">
+                <div class="well col-md-12 col-md-offset-2">
+                    <%=link_to gravatar_for(c, size: 200),chef_path(c)%>
+                    <br>
+                    <li class="chef-title"><%=link_to c.name.capitalize, chef_path(c)%>
+                    <li><%=pluralize(c.recipes.count, "recipe") if c.recipes%></li>
+                    <br>
+                </div>
+            </div>
+        </ul>
+    <%end%>
+</div>
+
+<div align="center">
+    <%= will_paginate%>
+</div>
