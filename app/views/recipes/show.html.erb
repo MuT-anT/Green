@@ -3,6 +3,18 @@
     <h2 class="center desc">Steps: </h2>
     <h4><%=simple_format(@recipe.description)%></h4>
     <hr/>
+
+    <div class="col-md-12 col-md-offset-4 well1">
+            <div class="center">
+                <%=link_to "Return to Recipes", recipes_path, class: "btn btn-primary btn-xs btn-xlarge" %>      
+                <%=link_to "Edit this Recipe", edit_recipe_path(@recipe), class: "btn btn-primary btn-xs btn-xlarge"%>
+            </div>
+    </div>
+    
+
+
+    <br>
+
     <div class="center">
         <p class="center">
             <em>Created by:</em>
@@ -11,7 +23,7 @@
             <%= gravatar_for(@recipe.chef)%>
         </p>
         <p class="center">
-            <%=link_to  @recipe.chef.name.capitalize , recipes_path(@recipe)%>
+            <%=link_to  @recipe.chef.name.capitalize , recipes_path(@recipe)%></small>
             <div class="center"><%=time_ago_in_words(@recipe.created_at)%> ago</div>
         </p>
     </div> 

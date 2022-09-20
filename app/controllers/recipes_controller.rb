@@ -1,4 +1,6 @@
 class RecipesController< ApplicationController
+before_action :set_recipe, only: [:show, :edit, :update]
+
     def index
         @recipes=Recipe.all
     end
@@ -10,32 +12,42 @@ class RecipesController< ApplicationController
         @recipe=Recipe.new(recipe_params)
         @recipe.chef=Chef.first
         if @recipe.save
-            flash[:notice]="Recipe was created Successfully"
+            flash[:success]="Recipe was created Successfully"
             redirect_to recipe_path(@recipe)
         else
             render 'new' , status: :unprocessable_entity
         end
     end
 
+
     def show
-        @recipe=Recipe.find(params[:id])
     end
 
     def edit
-        @recipe=Recipe.find(params[:id])
     end
 
+
     def update
-        @recipe=Todo.find(params[:id])
         if @recipe.update(recipe_params)
-            flash[:notice]="Todo was successfully Updated"
-            redirect_to todo_path(recipe)
+            flash[:success]="Recipe was updates successfully"
+            redirect_to recipe_path(@recipe)
         else
             render 'edit' , status: :unprocessable_entity
         end
     end
 
+
+    def destroy
+        @recipe=Recipe.find(params[:id]).destroy
+        flash[:success]="Recipe was deleted successfully"
+        redirect_to recipes_path
+    end
+
 private
+
+def set_recipe
+    @recipe=Recipe.find(params[:id])
+end
 
 def recipe_params
     params.require(:recipe).permit(:name,:description)
