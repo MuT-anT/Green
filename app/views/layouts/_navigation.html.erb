@@ -8,30 +8,51 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" <%=link_to "Home", root_path%> <span class="sr-only">(current)</span></a>
+        <a class="nav-link" <%=link_to "All Recipes", recipes_path%> <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" <%=link_to "Chefs", chefs_path%> <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item dropdown active">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Recipes
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" <%=link_to "Create a new Recipe",new_recipe_path%></a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-      </li>
+      <%if logged_in? %>
+        <li class="nav-item dropdown active">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Recipes
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" <%=link_to "Create My Recipe",chef_path(current_chef)%></a>
+            <a class="dropdown-item" <%=link_to "Edit your profile",edit_chef_path(current_chef)%></a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" <%=link_to "Logout" ,logout_path, data:{"turbo-method": :delete},method: :delete %></a>
+          </div>
+        </li>
+      <%end%>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+
+    
+    <ul class="navbar-nav mr-5">
+      <%if logged_in? %>
+          <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%=current_chef.name.capitalize%>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" <%=link_to "View Your Profile",chef_path(current_chef)%></a>
+              <a class="dropdown-item" <%=link_to "Edit your profile",edit_chef_path(current_chef)%></a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" <%=link_to "Logout" ,logout_path, data:{"turbo-method": :delete},method: :delete %></a>
+            </div>
+          </li>
+        <%else%>
+          <li class="nav-item active">
+            <a class="nav-link" <%=link_to "Login", login_path%></a>
+          </li>
+        <%end%>
+    </ul>
+    
   </div>
 </nav>
 

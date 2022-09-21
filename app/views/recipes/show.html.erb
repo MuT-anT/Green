@@ -3,12 +3,13 @@
     <h2 class="center desc">Steps: </h2>
     <h4><%=simple_format(@recipe.description)%></h4>
     <hr/>
-
-    <div class="col-md-12 col-md-offset-4 well1">
-            <div class="center">
-                <%=link_to "Return to Recipes", recipes_path, class: "btn btn-primary btn-xs btn-xlarge" %>      
+    <div class="col-md-12 col-md-offset-4 well1 center">
+        <%if logged_in? && current_chef==@recipe.chef %>      
                 <%=link_to "Edit this Recipe", edit_recipe_path(@recipe), class: "btn btn-primary btn-xs btn-xlarge"%>
-            </div>
+                <%=link_to "Delete this recipe", recipe_path(@recipe), class:"btn btn-primary btn-xs btn-xlarge", 
+            data: {"turbo-method": :delete}, method: :delete%>
+        <%end%>
+            <%=link_to "Return to Recipes", recipes_path, class: "btn btn-primary btn-xs btn-xlarge" %>
     </div>
     
 
@@ -23,7 +24,8 @@
             <%= gravatar_for(@recipe.chef)%>
         </p>
         <p class="center">
-            <%=link_to  @recipe.chef.name.capitalize , recipes_path(@recipe)%></small>
+            
+            <%=link_to @recipe.chef.name.capitalize , chef_path(@recipe.chef)%></small>
             <div class="center"><%=time_ago_in_words(@recipe.created_at)%> ago</div>
         </p>
     </div> 
