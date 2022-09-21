@@ -6,15 +6,19 @@
     </div>
 </div>
 <br>
-<h4 align="center"><%=@chef.name.capitalize%>'s recipes</h4>
-<div class="col-md-12 col-md-offset-4 well1">
-    <div class="center">
-        <%if logged_in? && (current_chef==@chef || current_chef.admin?) %>
-            <%=link_to "Add new Recipe", new_recipe_path(@chef), class: "btn btn-primary btn-md btn-xlarge" %>
-            <%=link_to "Edit your profile", edit_chef_path(@chef), class: "btn btn-primary btn-md btn-xlarge" %>
-        <%end%>
+<%if @chef.recipes.count !=0 %>
+    <h4 align="center"><%=@chef.name.capitalize%>'s recipes</h4>
+    <div class="col-md-12 col-md-offset-4 well1">
+        <div class="center">
+            <%if logged_in? && (current_chef==@chef || current_chef.admin?) %>
+                <%=link_to "Add new Recipe", new_recipe_path(@chef), class: "btn btn-primary btn-md btn-xlarge" %>
+                <%=link_to "Edit your profile", edit_chef_path(@chef), class: "btn btn-primary btn-md btn-xlarge" %>
+            <%end%>
+        </div>
     </div>
-</div>
+<%else%>
+    <h4 align="center">No recipes Yet</h4>
+<%end%>
 <hr/>
 <br>
 <div class="col-md-12 center">

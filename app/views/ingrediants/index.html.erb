@@ -1,0 +1,28 @@
+<%= render 'shared/page_title' , title: "Available Ingrediants"%>
+<br>
+
+<div align="center">
+    <%= will_paginate%>
+</div>
+
+
+<div align="center">
+    <%@ingrediants.each do |ing|%>
+        <ul class="listing">
+            <div class="row">
+                <div class="col-md-12 col-md-offset-2">
+                    <br>
+                    <li class="chef-title"><%=link_to ing.name.capitalize, ingrediant_path(ing)%></li>
+                    <li><%=pluralize(ing.recipes.count, "recipe") if ing.recipes%></li>
+                    <%if logged_in? &&current_chef.admin?%>
+                        <%=link_to "Edit this ingrediant", ingrediant_path(ing)%>
+                    <%end%>    
+                </div>
+            </div>
+        </ul>
+    <%end%>
+</div>
+
+<div align="center">
+    <%= will_paginate%>
+</div>
