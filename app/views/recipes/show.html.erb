@@ -4,7 +4,7 @@
     <h4><%=simple_format(@recipe.description)%></h4>
     <hr/>
     <div class="col-md-12 col-md-offset-4 well1 center">
-        <%if logged_in? && current_chef==@recipe.chef %>      
+        <%if logged_in? && (current_chef==@recipe.chef || current_chef.admin?) %>      
                 <%=link_to "Edit this Recipe", edit_recipe_path(@recipe), class: "btn btn-primary btn-xs btn-xlarge"%>
                 <%=link_to "Delete this recipe", recipe_path(@recipe), class:"btn btn-primary btn-xs btn-xlarge", 
             data: {"turbo-method": :delete}, method: :delete%>
