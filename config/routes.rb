@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   # root "articles#index"
   root "pages#home"
   get 'pages/home', to: 'pages#home'
-  resources :recipes
+  resources :recipes do 
+    resources :comments , only: [:create]
+  end
+
+
   get '/signup', to: 'chefs#new'
   resources :chefs, expect: [:new]
   get '/login' , to: 'sessions#new'

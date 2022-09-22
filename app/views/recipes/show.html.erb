@@ -2,6 +2,52 @@
 <div class="well col-md-12 col-md-offset-4">
     <h2 class="center desc">Steps: </h2>
     <h4><%=simple_format(@recipe.description)%></h4>
+    <%if @recipe.ingrediants.any?%>
+        <p>Ingrediants: <%=render @recipe.ingrediants%></p>
+    <%end%>
+    <hr/>
+    <%if logged_in?%>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <%= form_for([@recipe, @comment] , :html => {class: "form-horizontal",role: "form"}) do |f|%>
+                    <div class="form-group">
+                        <div class="control-label col-md-8">
+                            <%=f.label :"Enter your Comment Below:"%>
+                        </div>
+                        <div class="col-md-10">
+                            <%=f.text_area :description, rows: 4, class: "form-control",placeholder: "Enter Comment:"%>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-12">
+                            <%=f.submit "Enter Comment", class: "btn btn-primary btn-md btn-xlarge"%>
+                        </div>
+                    </div>
+                <%end%>
+            </div>
+        </div>
+    <%end%>
+     
+    <hr/>
+
+    <%if @recipe.comments !=0 %>
+        <div class ="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>Comments: </h3>
+                <br>
+                <div id="messages">
+                    <%=render partial: "comments/comments" , object: @comments%>
+                </div>
+            </div>
+        </div>
+    <%else%>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>No comments Yet!</h3>
+            </div>
+        </div>
+    <%end%>
+    <br>
     <hr/>
     <div class="col-md-12 col-md-offset-4 well1 center">
         <%if logged_in? && (current_chef==@recipe.chef || current_chef.admin?) %>      
@@ -11,11 +57,7 @@
         <%end%>
             <%=link_to "Return to Recipes", recipes_path, class: "btn btn-primary btn-xs btn-xlarge" %>
     </div>
-    
-
-
     <br>
-
     <div class="center">
         <p class="center">
             <em>Created by:</em>

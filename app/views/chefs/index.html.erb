@@ -15,7 +15,7 @@
                     <br>
                     <li class="chef-title"><%=link_to c.name.capitalize, chef_path(c)%>
                     <li><%=pluralize(c.recipes.count, "recipe") if c.recipes%></li>
-                    <%if current_chef.admin? && !c.admin?%>
+                    <%if logged_in? && (current_chef.admin? && !c.admin?)%>
                         <%=link_to "Delete this Chef", chef_path(c), class:"btn btn-primary btn-md btn-xlarge", data: {"turbo-method": :delete}, method: :delete%>
                     <%end%>    
                 </div>

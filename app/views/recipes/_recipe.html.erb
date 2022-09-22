@@ -12,8 +12,9 @@
         </div>
         <div class="col-md-8 well">
             <h4><%=link_to recipe.name, recipe_path(recipe)%></h4>
+            <br>
             <p>
-                <div class="float-end"><span class="quiet"><small>Created <%= time_ago_in_words(recipe.created_at) %> ago by <%=recipe.chef.name.capitalize%></small></span></div>
+                <div class="float-end"><span class="quiet"><small>Created <%= time_ago_in_words(recipe.created_at) %> ago by <%=recipe.chef.name.capitalize%><br><%=pluralize(recipe.comments.count,'Comment')%> </small></span></div>
             </p>
             <p><%=truncate(recipe.description, length: 70)%></p>
             <%if recipe.ingrediants.any? %>

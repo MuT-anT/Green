@@ -1,7 +1,7 @@
 class RecipesController< ApplicationController
 before_action :set_recipe, only: [:show, :edit, :update]
 before_action :require_user, except: [:index,:show]
-before_action :require_same_user, only: [:edit,:update]
+before_action :require_same_user, only: [:edit,:update,:destroy]
 
     def index
         @recipes=Recipe.paginate(page: params[:page],per_page: 5)
@@ -23,6 +23,8 @@ before_action :require_same_user, only: [:edit,:update]
 
 
     def show
+        @comment=Comment.new
+        @comments=@recipe.comments.paginate(page: params[:page],per_page: 10)
     end
 
     def edit
@@ -52,7 +54,7 @@ def set_recipe
 end
 
 def recipe_params
-    params.require(:recipe).permit(:name,:description)
+    params.require(:recipe).permit(:name,:description, ingrediant_ids: [])
 end
 
 def require_same_user

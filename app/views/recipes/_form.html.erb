@@ -21,6 +21,15 @@
                 </div>
             </div>
             <div class="form-group">
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-8">
+                        <%=f.collection_check_boxes :ingrediant_ids , Ingrediant.all, :id, :name do |i|%>
+                            <%i.label(class: "checkbox-inline input_checkbox") {i.check_box(class: "checkbox") +i.text}%>
+                        <%end%>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
                 <div class="col-md-offset-2 col-md-12">
                     <%=f.submit class: "btn btn-primary btn-md btn-xlarge"%>
                     <%=link_to "Return to Recipes", recipes_path, class: "btn btn-primary btn-md btn-xlarge"%>
